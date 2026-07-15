@@ -1,11 +1,11 @@
 "use client";
 
-import { Movie } from "@/types/movie";
+import { MediaCardData } from "@/types/movie";
 import MovieCard from "./movie-card";
 
 interface MovieCarouselProps {
   title?: string;
-  movies: Movie[];
+  movies: MediaCardData[];
 }
 
 export default function MovieCarousel({
@@ -15,7 +15,7 @@ export default function MovieCarousel({
   return (
     <section className="space-y-5">
       {title && (
-        <h2 className="text-3xl font-bold">
+        <h2 className="text-3xl font-bold font-display">
           {title}
         </h2>
       )}

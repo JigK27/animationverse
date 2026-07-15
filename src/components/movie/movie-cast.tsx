@@ -30,6 +30,7 @@ export default function MovieCast({ cast }: Props) {
                 src={getImageUrl(person.profile_path)}
                 alt={person.name}
                 fill
+                sizes="(max-width: 768px) 100vw"
                 className="object-cover transition duration-300 group-hover:scale-105"
               />
             </div>

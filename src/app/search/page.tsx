@@ -22,12 +22,11 @@ export default async function SearchPage({
   return (
     <main className="px-8 pt-24">
 
-      <h1 className="mb-8 text-3xl font-bold">
+      <h1 className="mb-8 text-3xl font-bold font-display">
         Search results for "{query}"
       </h1>
 
       <div className="grid grid-cols-2 gap-6 md:grid-cols-4 lg:grid-cols-6">
-        {console.log("data...", data)}
         {data.results.map((movie: any) => (
           <MovieCard
             key={movie.id}

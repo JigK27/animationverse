@@ -3,11 +3,11 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { Play, Info } from "lucide-react";
-import { Movie } from "@/types/movie";
+import { MediaCardData } from "@/types/movie";
 import { getImageUrl } from "@/lib/image";
 
 interface HeroBannerProps {
-  movie: Movie;
+  movie: MediaCardData;
 }
 
 export default function HeroBanner({
@@ -17,10 +17,11 @@ export default function HeroBanner({
     <section className="relative h-[70vh] min-h-[500px] w-full overflow-hidden rounded-2xl">
 
       <Image
-        src={getImageUrl(movie.backdrop_path, "original")}
-        alt={movie.title}
+        src={getImageUrl(movie.backdrop_path ?? "", "original")}
+        alt={movie.title ?? "Movie title"}
         fill
         priority
+        sizes="(max-width: 768px) 100vw"
         className="object-cover"
       />
 

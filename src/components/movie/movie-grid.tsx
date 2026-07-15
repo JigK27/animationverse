@@ -2,12 +2,12 @@
 
 import { motion } from "framer-motion";
 import MovieCard from "./movie-card";
-import { Movie } from "@/types/movie";
+import { MediaCardData } from "@/types/movie";
 
 export default function MovieGrid({
   movies,
 }: {
-  movies: Movie[];
+  movies: MediaCardData[];
 }) {
   return (
     <motion.div

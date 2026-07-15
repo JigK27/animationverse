@@ -1,12 +1,12 @@
 import Image from "next/image";
 import { getMovieDetails } from "@/lib/tmdb";
 import { getImageUrl } from "@/lib/image";
-import { Star, Calendar, Clock } from "lucide-react";
 import MovieTrailer from "@/components/movie/movie-trailer";
 import MovieCast from "@/components/movie/movie-cast";
 import MovieCrew from "@/components/movie/movie-crew";
 import MovieCarousel from "@/components/movie/movie-carousel";
 import MovieFacts from "@/components/movie/movie-facts";
+import WatchlistButton from "@/components/movie/watchlist-button";
 
 interface Props {
     params: Promise<{
@@ -20,12 +20,11 @@ export default async function MoviePage({
     const { id } = await params;
 
     const movie = await getMovieDetails(id);
-    console.log('movie-data', movie)
 
     return (
-        <main className="min-h-screen pt-20">
+        <main className="pb-20">
 
-            <section className="relative h-[55vh]">
+            <section className="relative h-[70vh]">
 
                 <Image
                     src={getImageUrl(movie.backdrop_path, "original")}
@@ -50,6 +49,7 @@ export default async function MoviePage({
                             src={getImageUrl(movie.poster_path)}
                             alt={movie.title}
                             fill
+                            sizes="(max-width: 768px) 100vw"
                             className="object-cover"
                         />
 
@@ -60,9 +60,9 @@ export default async function MoviePage({
                 </div>
 
 
-                <div className="relative flex-1 space-y-6">
+                <div className="flex-1 space-y-6">
 
-                    <h1 className="font-display text-5xl font-bold text-foreground pb-3">
+                    <h1 className="font-display text-5xl font-bold text-foreground">
                         {movie.title}
                     </h1>
 
@@ -71,13 +71,23 @@ export default async function MoviePage({
                         {movie.genres.map((genre: any) => (
                             <span
                                 key={genre.id}
-                                className="rounded-full bg-primary pe-4 py-4 text-sm text-primary-foreground"
+                                className="rounded-full bg-primary pe-4 py-2 text-sm text-primary-foreground"
                             >
                                 {genre.name}
                             </span>
                         ))}
 
                     </div>
+
+                    <WatchlistButton
+                        movie={{
+                            movieId: movie.id,
+                            title: movie.title,
+                            posterPath: movie.poster_path,
+                            releaseDate: movie.release_date,
+                            rating: movie.vote_average,
+                        }}
+                    />
 
                     <p className="max-w-3xl text-lg leading-8 text-foreground">
                         {movie.overview}

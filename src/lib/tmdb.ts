@@ -19,25 +19,53 @@ export async function tmdbFetch(endpoint: string) {
 }
 
 export async function getTrendingMovies() {
-  return tmdbFetch("/trending/movie/week");
+  const data = await tmdbFetch("/trending/movie/week");
+
+  return {
+  results: data.results.map((item:any)=>({
+    ...item,
+    media_type:"movie"
+  }))
+}
 }
 
 export async function getPopularAnimation() {
-  return tmdbFetch(
+  const data = await tmdbFetch(
     "/discover/movie?with_genres=16&sort_by=popularity.desc"
   );
+
+  return {
+    results: data.results.map((item: any) => ({
+      ...item,
+      media_type: "movie",
+    })),
+  };
 }
 
 export async function getTopRatedAnimation() {
-  return tmdbFetch(
-    "/discover/movie?with_genres=16&sort_by=vote_average.desc"
+  const data = await tmdbFetch(
+    "/discover/movie?with_genres=16&sort_by=vote_average.desc&vote_count.gte=1000"
   );
+
+  return {
+    results: data.results.map((item: any) => ({
+      ...item,
+      media_type: "movie",
+    })),
+  };
 }
 
 export async function getTrendingAnimation() {
-  return tmdbFetch(
+  const data = await tmdbFetch(
     "/discover/movie?with_genres=16&sort_by=popularity.desc"
   );
+
+  return {
+    results: data.results.map((item: any) => ({
+      ...item,
+      media_type: "movie",
+    })),
+  };
 }
 
 export async function getFeaturedAnimation() {
@@ -58,4 +86,55 @@ export async function getMovieDetails(id: string) {
   return tmdbFetch(
     `/movie/${id}?append_to_response=videos,credits,similar`
   );
+}
+
+export async function getTVDetails(id: string) {
+  return tmdbFetch(
+    `/tv/${id}?append_to_response=videos,credits,similar`
+  );
+}
+
+export async function getHeroMovies() {
+  return tmdbFetch("/trending/all/week");
+}
+
+export async function getVideos(
+  id: number,
+  mediaType: "movie" | "tv"
+) {
+  return tmdbFetch(`/${mediaType}/${id}/videos`);
+}
+
+export async function getTrendingAnime() {
+  const data = await tmdbFetch(
+    "/discover/tv?\
+with_genres=16\
+&with_origin_country=JP\
+&include_adult=false\
+&without_genres=10763,10764,10767\
+&sort_by=popularity.desc\
+&vote_count.gte=100"
+  );
+
+  return {
+    results: data.results.map((item: any) => ({
+      ...item,
+      media_type: "tv",
+    })),
+  };
+}
+
+export async function getNowPlaying() {
+  return tmdbFetch("/movie/now_playing");
+}
+
+export async function getTrendingTV() {
+  const data = await tmdbFetch("/trending/tv/week");
+
+  return {
+    results: data.results.map((item: any) => ({
+      ...item,
+      media_type: "tv",
+    })),
+  };
 }
